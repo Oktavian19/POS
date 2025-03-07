@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class HomeCareController extends Controller
 {
-    //
+    public function index() {
+        return view('home-care');
+    }
 }

@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class BeautyHealthController extends Controller
 {
-    //
+    public function index() {
+        return view('beauty-health');
+    }
 }

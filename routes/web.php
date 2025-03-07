@@ -1,32 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BabyKidController;
+use App\Http\Controllers\BeautyHealthController;
+use App\Http\Controllers\FoodBeverageController;
+use App\Http\Controllers\HomeCareController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class,'index']);
 
 # Route Prefix
 Route::prefix('category')->group(function () { 
-    Route::get('/food-beverage', function () {
-        return view('food-beverage');
-    });
-    Route::get('/beauty-health', function () {
-        return view('beauty-health');
-    });
-    Route::get('/home-care', function () {
-        return view('home-care');
-    });
-    Route::get('/baby-kid', function () {
-        return view('baby-kid');
-    });
+    Route::get('/food-beverage', [FoodBeverageController::class,'index']);
+    Route::get('/beauty-health',[BeautyHealthController::class,'index']);
+    Route::get('/home-care',[HomeCareController::class,'index']);
+    Route::get('/baby-kid',[BabyKidController::class,'index']);
 });
 
 # Route Param
-Route::get('/user/{id}/name/{name}', function ($id, $name) {
-    return view('User dengan nama '.$name.' memiliki id '.$id);
-});
+Route::get('/user/{id}/name/{name}',[UserController::class,'index']);
 
-Route::get('/transaction', function () {
-    return view('transaction');
-});
+Route::get('/transaction',[TransactionController::class,'index']);
