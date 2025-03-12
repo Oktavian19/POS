@@ -27,7 +27,7 @@ class PenjualanDetailSeeder extends Seeder
                     'penjualan_id'   => $penjualan_id,
                     'barang_id'      => $barang_id,
                     'jumlah'         => rand(1, 5),
-                    'harga'          => rand(5000, 50000),
+                    'harga'          => rand(5, 50)*1000,
                 ];
             }
         }
