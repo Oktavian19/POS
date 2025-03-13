@@ -21,10 +21,8 @@ Route::prefix('category')->group(function () {
     Route::get('/baby-kid',[BabyKidController::class,'index']);
 });
 
-# Route Param
-Route::get('/user/{id}/name/{name}',[UserController::class,'index']);
-
 Route::get('/transaction',[TransactionController::class,'index']);
 
 Route::get('/level',[LevelController::class,'index']);
 Route::get('/kategori',[KategoriController::class,'index']);
+Route::get('/user',[UserController::class,'index']);
