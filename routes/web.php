@@ -5,13 +5,13 @@ use App\Http\Controllers\BabyKidController;
 use App\Http\Controllers\BeautyHealthController;
 use App\Http\Controllers\FoodBeverageController;
 use App\Http\Controllers\HomeCareController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\WelcomeController;
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [WelcomeController::class,'index']);
 
 # Route Prefix
 Route::prefix('category')->group(function () { 
