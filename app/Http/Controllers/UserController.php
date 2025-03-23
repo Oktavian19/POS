@@ -106,7 +106,7 @@ class UserController extends Controller
 
         return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]); 
     }
-
+    
     public function edit(string $id){
         $user = UserModel::find($id);
         $level = LevelModel::all();
@@ -159,6 +159,12 @@ class UserController extends Controller
             // Jika terjadi error ketika menghapus data, redirect ke halaman dengan membawa pesan error
             return redirect('/user')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
+    }
+
+    public function show_ajax($id) {
+        $user = UserModel::find($id);
+
+        return view('user.show_ajax', ['user' => $user]);
     }
 
     public function create_ajax() {

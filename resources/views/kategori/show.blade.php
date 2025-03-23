@@ -19,7 +19,7 @@
                         <td>{{ $kategori->kategori_id }}</td>
                     </tr>
                     <tr>
-                        <th>Kategori ID</th>
+                        <th>Kategori Kode</th>
                         <td>{{ $kategori->kategori_kode }}</td>
                     </tr>
                     <tr>
