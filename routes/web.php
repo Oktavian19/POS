@@ -2,13 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BabyKidController;
 use App\Http\Controllers\BarangController;
-use App\Http\Controllers\BeautyHealthController;
-use App\Http\Controllers\FoodBeverageController;
-use App\Http\Controllers\HomeCareController;
-use App\Http\Controllers\PenjualanController;
-use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
@@ -24,6 +18,26 @@ Route::get('logout', [AuthController::class,'logout'])->middleware('auth');
 
 Route::middleware(['auth'])->group(function () { // artinya semua route pada group ini harus login dulu
     Route::get('/', [WelcomeController::class,'index']); 
+
+    Route::middleware(['authorize:ADM'])->group(function() {
+        Route::group(['prefix' => 'level'], function () {
+            Route::get('/', [LevelController::class, 'index']);              
+            Route::post('/list', [LevelController::class, 'list']);          
+            Route::get('/create', [LevelController::class, 'create']);       
+            Route::post('/', [LevelController::class, 'store']);             
+            Route::get('/create_ajax', [LevelController::class, 'create_ajax']);
+            Route::post('/ajax', [LevelController::class, 'store_ajax']);
+            Route::get('/{id}', [LevelController::class, 'show']);
+            Route::get('/{id}/show_ajax', [LevelController::class, 'show_ajax']);        
+            Route::get('/{id}/edit', [LevelController::class, 'edit']);      
+            Route::put('/{id}', [LevelController::class, 'update']);         
+            Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']);
+            Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']);
+            Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);
+            Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
+            Route::delete('/{id}', [LevelController::class, 'destroy']);     
+        });     
+    });
 
     Route::group(['prefix' => 'user'], function() {     
         Route::get('/', [UserController::class, 'index']);          
@@ -41,24 +55,6 @@ Route::middleware(['auth'])->group(function () { // artinya semua route pada gro
         Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']); 
         Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']); 
         Route::delete('/{id}', [UserController::class, 'destroy']);
-    });
-    
-    Route::group(['prefix' => 'level'], function () {
-        Route::get('/', [LevelController::class, 'index']);              
-        Route::post('/list', [LevelController::class, 'list']);          
-        Route::get('/create', [LevelController::class, 'create']);       
-        Route::post('/', [LevelController::class, 'store']);             
-        Route::get('/create_ajax', [LevelController::class, 'create_ajax']);
-        Route::post('/ajax', [LevelController::class, 'store_ajax']);
-        Route::get('/{id}', [LevelController::class, 'show']);
-        Route::get('/{id}/show_ajax', [LevelController::class, 'show_ajax']);        
-        Route::get('/{id}/edit', [LevelController::class, 'edit']);      
-        Route::put('/{id}', [LevelController::class, 'update']);         
-        Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']);
-        Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']);
-        Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);
-        Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
-        Route::delete('/{id}', [LevelController::class, 'destroy']);     
     });
     
     Route::group(['prefix' => 'kategori'], function () {
@@ -132,39 +128,4 @@ Route::middleware(['auth'])->group(function () { // artinya semua route pada gro
         Route::delete('/{id}/delete_ajax', [StokController::class, 'delete_ajax']);
         Route::delete('/{id}', [StokController::class, 'destroy']);     
     });
-});
-
-# Route Prefix
-Route::prefix('category')->group(function () { 
-    Route::get('/food-beverage', [FoodBeverageController::class,'index']);
-    Route::get('/beauty-health',[BeautyHealthController::class,'index']);
-    Route::get('/home-care',[HomeCareController::class,'index']);
-    Route::get('/baby-kid',[BabyKidController::class,'index']);
-});
-
-Route::get('/transaction',[TransactionController::class,'index']);
-
-Route::get('/user',[UserController::class,'index']);
-Route::get('/user/tambah',[UserController::class,'tambah']);
-Route::post('user/tambah_simpan', [UserController::class, 'tambah_simpan']);
-Route::get('/user/ubah/{id}', [UserController::class, 'ubah']);
-Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
-Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
-
-Route::group(['prefix' => 'penjualan'], function () {
-    Route::get('/', [PenjualanController::class, 'index']);              
-    Route::post('/list', [PenjualanController::class, 'list']);          
-    Route::get('/create', [PenjualanController::class, 'create']);       
-    Route::post('/', [PenjualanController::class, 'store']);             
-    Route::get('/create_ajax', [PenjualanController::class, 'create_ajax']);
-    Route::post('/ajax', [PenjualanController::class, 'store_ajax']);
-    Route::get('/{id}', [PenjualanController::class, 'show']);        
-    Route::get('/{id}/show_ajax', [PenjualanController::class, 'show_ajax']);
-    Route::get('/{id}/edit', [PenjualanController::class, 'edit']);      
-    Route::put('/{id}', [PenjualanController::class, 'update']);         
-    Route::get('/{id}/edit_ajax', [PenjualanController::class, 'edit_ajax']);
-    Route::put('/{id}/update_ajax', [PenjualanController::class, 'update_ajax']);
-    Route::get('/{id}/delete_ajax', [PenjualanController::class, 'confirm_ajax']);
-    Route::delete('/{id}/delete_ajax', [PenjualanController::class, 'delete_ajax']);
-    Route::delete('/{id}', [PenjualanController::class, 'destroy']);     
 });
