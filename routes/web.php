@@ -75,7 +75,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route pada gro
             Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']);
             Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
             Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
-            Route::delete('/{id}', [BarangController::class, 'destroy']);     
+            Route::delete('/{id}', [BarangController::class, 'destroy']);
+            Route::get('/import', [BarangController::class, 'import']);
+            Route::post('/import_ajax', [BarangController::class, 'import_ajax']);
         }); 
 
         Route::group(['prefix' => 'kategori'], function () {
@@ -93,7 +95,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route pada gro
             Route::put('/{id}/update_ajax', [KategoriController::class, 'update_ajax']);
             Route::get('/{id}/delete_ajax', [KategoriController::class, 'confirm_ajax']);
             Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);
-            Route::delete('/{id}', [KategoriController::class, 'destroy']);     
+            Route::delete('/{id}', [KategoriController::class, 'destroy']);
         });
         
         Route::group(['prefix' => 'supplier'], function () {
