@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\KategoriModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -381,5 +382,17 @@ class KategoriController extends Controller
 
         $writer->save('php://output');
         exit;
+    }
+
+    public function export_pdf() {
+        $kategori = KategoriModel::select('kategori_kode', 'kategori_nama')
+                    ->get();
+
+        $pdf = Pdf::loadView('kategori.export_pdf', ['kategori' => $kategori]);
+        $pdf->setPaper('a4', 'portrait');
+        $pdf->setOption("isRemoteEnabled", true);
+        $pdf->render();
+
+        return $pdf->stream('Data Kategori '.date('Y-m-d H:i:s').'.pdf');
     }
 }
