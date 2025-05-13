@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,5 +41,27 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('login');
+    }
+
+    public function register() {
+        return view('auth.register');
+    }
+
+    public function store(Request $request) {
+        $request->validate([
+            // username harus diisi, berupa string, minimal 3 karakter, dan bernilai unik di tabel m_user kolom username
+            'username'  => 'required|string|min:3|unique:m_user,username',
+            'nama'      => 'required|string|max:100',   //nama harus diisi berupa string dan maksimal 100 karakter
+            'password'  => 'required|min:5',            // password harus diisi dan minimal 5 karakter
+        ]);
+
+        UserModel::create([
+            'username'  => $request->username,
+            'nama'      => $request->nama,
+            'password'  => bcrypt($request->password), //password dienkripsi sebelum disimpan
+            'level_id'  => 3
+        ]);
+
+        return redirect('/login')->with('success', 'Data staff berhasil disimpan');
     }
 }

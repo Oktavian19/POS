@@ -44,9 +44,7 @@
                     </div> 
                     <div class="row"> 
                         <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember"><label for="remember">Remember Me</label>
-                            </div> 
+                             <a href="{{ url('/register') }}" class="btn btn-info btn-sm">Daftar</a>
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
@@ -83,7 +81,7 @@
         $(document).ready(function() { 
             $("#form-login").validate({ 
             rules: { 
-                username: {required: true, minlength: 4, maxlength: 20}, 
+                username: {required: true, minlength: 3, maxlength: 20}, 
                 password: {required: true, minlength: 5, maxlength: 20} 
             }, 
             submitHandler: function(form) { // ketika valid, maka bagian yg akan dijalankan 

@@ -15,6 +15,8 @@ Route::pattern('id', '[0-9]+');
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin']);
 Route::get('logout', [AuthController::class,'logout'])->middleware('auth');
+Route::get('register', [AuthController::class, 'register']);
+Route::post('register', [AuthController::class, 'store']);
 
 Route::middleware(['auth'])->group(function () { // artinya semua route pada group ini harus login dulu
     Route::get('/', [WelcomeController::class,'index']); 
@@ -112,7 +114,7 @@ Route::middleware(['auth'])->group(function () { // artinya semua route pada gro
             Route::delete('/{id}', [SupplierController::class, 'destroy']);     
         });
     });
-    
+
     Route::group(['prefix' => 'stok'], function () {
         Route::get('/', [StokController::class, 'index']);              
         Route::post('/list', [StokController::class, 'list']);          
