@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\KategoriModel;
 use App\Models\SupplierModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class BarangModel extends Model
 {
@@ -19,7 +20,8 @@ class BarangModel extends Model
         'harga_beli',
         'harga_jual',
         'kategori_id',
-        'supplier_id'
+        'supplier_id',
+        'image'
     ];
 
     public function kategori()
@@ -30,5 +32,11 @@ class BarangModel extends Model
     public function supplier()
     {
         return $this->belongsTo(SupplierModel::class, 'supplier_id', 'supplier_id');
+    }
+
+    protected function image() : Attribute {
+        return Attribute::make(
+            get: fn ($image) => url('/storage/posts/' . $image),
+        );
     }
 }
